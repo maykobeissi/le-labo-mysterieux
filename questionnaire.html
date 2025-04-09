@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Labo Mystérieux - Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50; /* Bleu foncé */
+            color: #ecf0f1; /* Texte blanc */
+            line-height: 1.6;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #ecf0f1;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            font-size: 1.2em;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            background-color: #3498db; /* Bleu clair */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #2980b9; /* Bleu plus foncé au survol */
+        }
+    </style>
+</head>
+<body>
+    <h1>Complétez l'enquête :</h1>
+
+    <!-- Audio des sons -->
+    <audio id="sonBonne" src="bonne.mp3"></audio>
+    <audio id="sonMauvaise" src="mauvaise.mp3"></audio>
+
+    <!-- Formulaire de réponses -->
+    <form id="questionnaire">
+        <label for="reponse1">1. Quel objet était cassé dans le laboratoire ?</label><br>
+        <input type="text" id="reponse1" required><br><br>
+
+        <label for="reponse2">2. Quel appareil était encore allumé dans la pièce ?</label><br>
+        <input type="text" id="reponse2" required><br><br>
+
+        <label for="reponse3">3. Quelle information étrange était écrite au tableau ?</label><br>
+        <input type="text" id="reponse3" required><br><br>
+
+        <button type="button" onclick="verifierReponses()">Soumettre les réponses</button>
+    </form>
+
+    <!-- Script de vérification des réponses -->
+    <script>
+        function verifierReponses() {
+            console.log("La fonction verifierReponses() a été appelée !");
+
+            var reponse1 = document.getElementById('reponse1').value.trim().toLowerCase();
+            var reponse2 = document.getElementById('reponse2').value.trim().toLowerCase();
+            var reponse3 = document.getElementById('reponse3').value.trim().toLowerCase();
+
+            var bonneReponse1 = "tube à essai";
+            var bonneReponse2 = "ordinateur allumé";
+            var bonneReponse3 = "formule";
+
+            const sonBonne = document.getElementById('sonBonne');
+            const sonMauvaise = document.getElementById('sonMauvaise');
+
+            if (reponse1 === bonneReponse1 && reponse2 === bonneReponse2 && reponse3 === bonneReponse3) {
+                sonBonne.play();
+                alert("Bravo ! Vous avez résolu l'énigme.");
+                setTimeout(() => {
+                    window.location.href = "fin.html";
+                }, 1000);
+            } else {
+                sonMauvaise.play();
+                alert("Une ou plusieurs réponses sont incorrectes. Essayez encore !");
+                console.log("Réponse 1: " + reponse1 + " (attendue: " + bonneReponse1 + ")");
+                console.log("Réponse 2: " + reponse2 + " (attendue: " + bonneReponse2 + ")");
+                console.log("Réponse 3: " + reponse3 + " (attendue: " + bonneReponse3 + ")");
+            }
+        }
+    </script>
+</body>
+</html>
